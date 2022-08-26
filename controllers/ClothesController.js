@@ -2,8 +2,21 @@ import ClothesModel from '../models/Clothes.js'
 
 export const getAll = async (req, res) => {
     try {
-         const clothes = await ClothesModel.find();
-        res.json(clothes)
+        let clothesLength = await ClothesModel.find()
+        let clothes = await ClothesModel.find({
+            title: new RegExp(req.query.title, 'i'),
+            category: new RegExp(req.query.category, 'i'),
+            price: {
+                $gte : req.query.from ? req.query.from : 0,
+                $lte : req.query.to ? req.query.to : 20000
+            }},
+        ).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit);
+
+        console.log(req.query)
+        res.json({
+            products: clothes,
+            productsLength : clothesLength.length
+        })
     } catch (err) {
         console.log(err)
         res.status(500).json({
