@@ -7,6 +7,7 @@ export const clothesCreateValidation = [
     body('inStock', 'Неверный формат размеров (укажите массив)').optional().isNumeric(),
     body('images', 'Неверный формат картинок (укажите массив)').optional().isArray(),
     body('category', 'Введите категорию').isString(),
+    body('brand', 'Введите бренд').isString(),
 ]
 
 export const addOrderValidation = [
