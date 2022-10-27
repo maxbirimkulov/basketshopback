@@ -3,93 +3,106 @@ import ClothesModel from '../models/Clothes.js'
 export const getAll = async (req, res) => {
     try {
         let clothesLength;
-        let clothes;
-        if (req.query.category && req.query.brand) {
-             clothesLength = await ClothesModel.find({
-                title: new RegExp(req.query.title, 'i'),
-                category: {
-                    $in: req.query.category.split(',')
-                },
-                 brand: {
-                     $in: req.query.brand.split(',')
-                 },
-                price: {
-                    $gte : req.query.from ? req.query.from : 0,
-                    $lte : req.query.to ? req.query.to : 20000
-                }});
-             clothes = await ClothesModel.find({
-                title: new RegExp(req.query.title, 'i'),
-                category: {
-                    $in: req.query.category.split(',')
-                },
-                 brand: {
-                     $in: req.query.brand.split(',')
-                 },
-                price: {
-                    $gte : req.query.from ? req.query.from : 0,
-                    $lte : req.query.to ? req.query.to : 20000
-                }},
-            ).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit);
-        }  else if (req.query.category) {
-            clothesLength = await ClothesModel.find({
-                title: new RegExp(req.query.title, 'i'),
-                category: {
-                    $in: req.query.category.split(',')
-                },
-                price: {
-                    $gte : req.query.from ? req.query.from : 0,
-                    $lte : req.query.to ? req.query.to : 20000
-                }});
-            clothes = await ClothesModel.find({
-                title: new RegExp(req.query.title, 'i'),
-                category: {
-                    $in: req.query.category.split(',')
-                },
-                price: {
-                    $gte : req.query.from ? req.query.from : 0,
-                    $lte : req.query.to ? req.query.to : 20000
-                }},
-            ).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit);
-        } else if (req.query.brand) {
-            clothesLength = await ClothesModel.find({
-                title: new RegExp(req.query.title, 'i'),
-                brand: {
-                    $in: req.query.brand.split(',')
-                },
-                price: {
-                    $gte : req.query.from ? req.query.from : 0,
-                    $lte : req.query.to ? req.query.to : 20000
-                }});
-            clothes = await ClothesModel.find({
-                title: new RegExp(req.query.title, 'i'),
-                brand: {
-                    $in: req.query.brand.split(',')
-                },
-                price: {
-                    $gte : req.query.from ? req.query.from : 0,
-                    $lte : req.query.to ? req.query.to : 20000
-                }},
-            ).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit);
-        } else {
+        let clothes = await ClothesModel.find()
 
-            clothesLength = await ClothesModel.find({
-                title: new RegExp(req.query.title, 'i'),
-                price: {
-                    $gte : req.query.from ? req.query.from : 0,
-                    $lte : req.query.to ? req.query.to : 20000
-                }});
-            clothes = await ClothesModel.find({
-                title: new RegExp(req.query.title, 'i'),
-                price: {
-                    $gte : req.query.from ? req.query.from : 0,
-                    $lte : req.query.to ? req.query.to : 20000
-                }},
-            ).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit);
-        }
-        res.json({
-            products: clothes,
-            productsLength : clothesLength.length
-        })
+        
+
+
+
+        // if (req.query.category && req.query.brand) {
+        //      clothesLength = await ClothesModel.find({
+        //         title: new RegExp(req.query.title, 'i'),
+        //         category: {
+        //             $in: req.query.category.split(',')
+        //         },
+        //          brand: {
+        //              $in: req.query.brand.split(',')
+        //          },
+        //         price: {
+        //             $gte : req.query.from ? req.query.from : 0,
+        //             $lte : req.query.to ? req.query.to : 20000
+        //         }});
+        //      clothes = await ClothesModel.find({
+        //         title: new RegExp(req.query.title, 'i'),
+        //         category: {
+        //             $in: req.query.category.split(',')
+        //         },
+        //          brand: {
+        //              $in: req.query.brand.split(',')
+        //          },
+        //         price: {
+        //             $gte : req.query.from ? req.query.from : 0,
+        //             $lte : req.query.to ? req.query.to : 20000
+        //         }},
+        //     ).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit);
+        // }  else if (req.query.category) {
+        //     clothesLength = await ClothesModel.find({
+        //         title: new RegExp(req.query.title, 'i'),
+        //         category: {
+        //             $in: req.query.category.split(',')
+        //         },
+        //         price: {
+        //             $gte : req.query.from ? req.query.from : 0,
+        //             $lte : req.query.to ? req.query.to : 20000
+        //         }});
+        //     clothes = await ClothesModel.find({
+        //         title: new RegExp(req.query.title, 'i'),
+        //         category: {
+        //             $in: req.query.category.split(',')
+        //         },
+        //         price: {
+        //             $gte : req.query.from ? req.query.from : 0,
+        //             $lte : req.query.to ? req.query.to : 20000
+        //         }},
+        //     ).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit);
+        // } else if (req.query.brand) {
+        //     clothesLength = await ClothesModel.find({
+        //         title: new RegExp(req.query.title, 'i'),
+        //         brand: {
+        //             $in: req.query.brand.split(',')
+        //         },
+        //         price: {
+        //             $gte : req.query.from ? req.query.from : 0,
+        //             $lte : req.query.to ? req.query.to : 20000
+        //         }});
+        //     clothes = await ClothesModel.find({
+        //         title: new RegExp(req.query.title, 'i'),
+        //         brand: {
+        //             $in: req.query.brand.split(',')
+        //         },
+        //         price: {
+        //             $gte : req.query.from ? req.query.from : 0,
+        //             $lte : req.query.to ? req.query.to : 20000
+        //         }},
+        //     ).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit);
+        // } else {
+        //
+        //     clothesLength = await ClothesModel.find({
+        //         title: new RegExp(req.query.title, 'i'),
+        //         price: {
+        //             $gte : req.query.from ? req.query.from : 0,
+        //             $lte : req.query.to ? req.query.to : 20000
+        //         }});
+        //     clothes = await ClothesModel.find({
+        //         title: new RegExp(req.query.title, 'i'),
+        //         price: {
+        //             $gte : req.query.from ? req.query.from : 0,
+        //             $lte : req.query.to ? req.query.to : 20000
+        //         }},
+        //     ).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit);
+        // }
+
+
+
+
+
+        res.json(clothes)
+
+
+        // res.json({
+        //     products: clothes,
+        //     productsLength : clothesLength.length
+        // })
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -170,10 +183,15 @@ export const create =  async (req, res) => {
             images: req.body.images,
             sizes: req.body.sizes,
             category: req.body.category,
+            subcategory: req.body.subcategory,
             inStock: req.body.inStock,
-            brand: req.body.brand
+            brand: req.body.brand,
+            tag: req.body.tag,
+            description: req.body.description
         });
+
         const clothes = await doc.save();
+        console.log(clothes)
         res.json(clothes)
     } catch (err) {
         console.log(err);

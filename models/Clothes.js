@@ -21,8 +21,12 @@ const ClothesSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    subcategory: {
+        type: String,
+        required: true
+    },
     inStock: {
-        type: Number,
+        type: Boolean,
         default: 0,
     },
     images: {
@@ -33,6 +37,12 @@ const ClothesSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    tag : {
+        type: String
+    },
+    description : {
+        type: String
+    }
 }, {
     timestamps: true,
 })

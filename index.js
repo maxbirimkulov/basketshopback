@@ -2,6 +2,7 @@ import express from 'express'
 import multer from 'multer'
 import cors from 'cors'
 import TelegramApi from "node-telegram-bot-api";
+
 import {
 
     clothesCreateValidation
@@ -35,7 +36,6 @@ index.use('/uploads', express.static('uploads'))
 
 const token = '5562531972:AAHr6GKdxd6jtJmew9Agnwl0qpMUkebz0BY'
 
-
 //export const bot = new TelegramApi(token, {polling: true})
 
 const PORT = process.env.PORT || 4444
@@ -51,7 +51,7 @@ index.get('/clothes', getAll )
 index.get('/clothes/:id', getOne )
 index.delete('/clothes/:id', remove )
 index.patch('/clothes/:id', clothesCreateValidation, handleValidatorErrors,   update )
-index.post('/clothes', clothesCreateValidation, handleValidatorErrors, create )
+index.post('/clothes',  clothesCreateValidation, handleValidatorErrors, create )
 
 
 
