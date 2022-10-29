@@ -1,7 +1,7 @@
 import express from 'express'
 import multer from 'multer'
 import cors from 'cors'
-import TelegramApi from "node-telegram-bot-api";
+
 
 import {
 
@@ -34,9 +34,6 @@ index.use(express.json())
 index.use(cors())
 index.use('/uploads', express.static('uploads'))
 
-const token = '5562531972:AAHr6GKdxd6jtJmew9Agnwl0qpMUkebz0BY'
-
-//export const bot = new TelegramApi(token, {polling: true})
 
 const PORT = process.env.PORT || 4444
 
