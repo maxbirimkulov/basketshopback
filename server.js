@@ -17,7 +17,7 @@ mongoose.connect('mongodb+srv://admin:123456basket@basketshop.jj6mnlm.mongodb.ne
     .catch((err) =>  console.log('Ошибка при запуске Mongo DB ' ,err))
 
 
-const index = express()
+const server = express()
 
 const storage = multer.diskStorage({
     destination: (_, __, cb) => {
@@ -30,29 +30,29 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-index.use(express.json())
-index.use(cors())
-index.use('/uploads', express.static('uploads'))
+server.use(express.json())
+server.use(cors())
+server.use('/uploads', express.static('uploads'))
 
 
 const PORT = process.env.PORT || 4444
 
 
-index.post('/upload',  upload.single('image'), (req, res) => {
+server.post('/upload',  upload.single('image'), (req, res) => {
     res.json({
         url: `/uploads/${req.file.originalname}`,
     })
 })
 
-index.get('/clothes', getAll )
-index.get('/clothes/:id', getOne )
-index.delete('/clothes/:id', remove )
-index.patch('/clothes/:id', clothesCreateValidation, handleValidatorErrors,   update )
-index.post('/clothes',  clothesCreateValidation, handleValidatorErrors, create )
+server.get('/clothes', getAll )
+server.get('/clothes/:id', getOne )
+server.delete('/clothes/:id', remove )
+server.patch('/clothes/:id', clothesCreateValidation, handleValidatorErrors,   update )
+server.post('/clothes',  clothesCreateValidation, handleValidatorErrors, create )
 
 
 
-index.listen(PORT, (err) => {
+server.listen(PORT, (err) => {
     if (err){
         return  console.log('Произошла ошибка', err)
     }
