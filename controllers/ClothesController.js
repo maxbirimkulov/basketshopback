@@ -3,9 +3,29 @@ import ClothesModel from '../models/Clothes.js'
 export const getAll = async (req, res) => {
     try {
         let clothesLength;
-        let clothes = await ClothesModel.find()
+        let clothes = await ClothesModel.find({
+            title: new RegExp(req.query.title, 'i'),
+            category: new RegExp(req.query.category, 'i'),
+            subcategory: new RegExp(req.query.subcategory, 'i'),
+            tag: new RegExp(req.query.tag, 'i'),
+            brand: new RegExp(req.query.brand, 'i'),
+            price: {
+                    $gte : req.query.from ? req.query.from : 0,
+                    $lte : req.query.to ? req.query.to : 20000
+            }}).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit)
 
-        
+
+        if (req.query.sizes){
+            clothes = clothes.filter((el) => {
+                return el.sizes.includes(req.query.sizes)
+            })
+        }
+
+
+
+
+
+
 
 
 
@@ -93,16 +113,13 @@ export const getAll = async (req, res) => {
         // }
 
 
+        res.json({
+            products: clothes,
+            productsLength : clothes.length
+        })
 
 
 
-        res.json(clothes)
-
-
-        // res.json({
-        //     products: clothes,
-        //     productsLength : clothesLength.length
-        // })
     } catch (err) {
         console.log(err);
         res.status(500).json({
