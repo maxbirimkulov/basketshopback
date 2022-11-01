@@ -2,6 +2,7 @@ import {body} from "express-validator";
 
 export const clothesCreateValidation = [
     body('title', 'Введите название товара').isLength({min: 3}).isString(),
+    body('tag', 'Введите название тега').isString(),
     body('price', 'Введите цену товара').isNumeric(),
     body('sizes', 'Неверный формат размеров (укажите массив)').optional().isArray(),
     body('inStock', 'Неверный формат в наличии').optional().isBoolean(),

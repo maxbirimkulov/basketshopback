@@ -5,6 +5,7 @@ export const getAllTag = async (req, res) => {
         let clothes = await TagsModel.find({
             title: new RegExp(req.query.title, 'i'),
             category: new RegExp(req.query.category, 'i'),
+            subcategory: new RegExp(req.query.subcategory, 'i'),
             brand: new RegExp(req.query.brand, 'i'),
            })
         res.json(clothes)
@@ -85,6 +86,7 @@ export const createTag =  async (req, res) => {
         const doc = new TagsModel({
             title: req.body.title,
             category: req.body.category,
+            subcategory: req.body.subcategory,
             brand: req.body.brand
         });
         const tags = await doc.save();
@@ -105,6 +107,7 @@ export const updateTag =  async (req, res) => {
         }, {
             title: req.body.title,
             category: req.body.category,
+            subcategory: req.body.subcategory,
             brand: req.body.brand,
         });
         res.json({success: true})

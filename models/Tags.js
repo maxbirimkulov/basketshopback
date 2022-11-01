@@ -9,6 +9,10 @@ const TagsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    subcategory: {
+        type: String,
+        required: true
+    },
      brand: {
         type: String,
         required: true
