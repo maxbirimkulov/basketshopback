@@ -1,8 +1,6 @@
 import express from 'express'
 import multer from 'multer'
 import cors from 'cors'
-
-
 import {
 
     clothesCreateValidation
@@ -10,6 +8,7 @@ import {
 import handleValidatorErrors from "./utils/handleValidatorErrors.js";
 import mongoose from 'mongoose'
 import {create, getAll,getOne, remove, update} from './controllers/ClothesController.js'
+import {createTag, getAllTag,getOneTag, removeTag, updateTag} from './controllers/TagsController.js'
 
 
 mongoose.connect('mongodb+srv://admin:123456basket@basketshop.jj6mnlm.mongodb.net/basketshop?retryWrites=true&w=majority')
@@ -50,6 +49,11 @@ server.delete('/clothes/:id', remove )
 server.patch('/clothes/:id', clothesCreateValidation, handleValidatorErrors,   update )
 server.post('/clothes',  clothesCreateValidation, handleValidatorErrors, create )
 
+server.get('/tag', getAllTag )
+server.get('/tag/:id', getOneTag )
+server.delete('/tag/:id',removeTag )
+server.patch('/tag/:id',updateTag )
+server.post('/tag',createTag )
 
 
 server.listen(PORT, (err) => {

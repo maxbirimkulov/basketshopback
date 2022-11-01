@@ -17,6 +17,10 @@ const ClothesSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
+    colors : {
+        type: Array,
+        default: [],
+    },
     category: {
         type: String,
         required: true

@@ -2,7 +2,6 @@ import ClothesModel from '../models/Clothes.js'
 
 export const getAll = async (req, res) => {
     try {
-        let clothesLength;
         let clothes = await ClothesModel.find({
             title: new RegExp(req.query.title, 'i'),
             category: new RegExp(req.query.category, 'i'),
@@ -20,13 +19,11 @@ export const getAll = async (req, res) => {
                 return el.sizes.includes(req.query.sizes)
             })
         }
-
-
-
-
-
-
-
+        if (req.query.colors){
+            clothes = clothes.filter((el) => {
+                return el.colors.includes(req.query.colors)
+            })
+        }
 
 
         // if (req.query.category && req.query.brand) {
@@ -199,6 +196,7 @@ export const create =  async (req, res) => {
             price : req.body.price,
             images: req.body.images,
             sizes: req.body.sizes,
+            colors: req.body.colors,
             category: req.body.category,
             subcategory: req.body.subcategory,
             inStock: req.body.inStock,
@@ -208,7 +206,6 @@ export const create =  async (req, res) => {
         });
 
         const clothes = await doc.save();
-        console.log(clothes)
         res.json(clothes)
     } catch (err) {
         console.log(err);
@@ -229,9 +226,13 @@ export const update =  async (req, res) => {
             price : req.body.price,
             images: req.body.images,
             sizes: req.body.sizes,
+            colors: req.body.colors,
             category: req.body.category,
+            subcategory: req.body.subcategory,
             inStock: req.body.inStock,
-            brand: req.body.brand
+            brand: req.body.brand,
+            tag: req.body.tag,
+            description: req.body.description
         });
         res.json({success: true})
     } catch (err) {
