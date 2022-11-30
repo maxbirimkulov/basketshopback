@@ -11,7 +11,10 @@ export const getAll = async (req, res) => {
             price: {
                     $gte : req.query.from ? req.query.from : 0,
                     $lte : req.query.to ? req.query.to : 20000
-            }}).sort(req.query.desc === 'true' ? '-price' : 'price').skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit).limit(+req.query.limit)
+            }})
+            .sort(req.query.desc === 'true' ? '-price' : 'price')
+            .skip(+req.query.page === 1 ? 0 : +req.query.page * +req.query.limit - +req.query.limit)
+            .limit(+req.query.limit)
 
 
         if (req.query.sizes){
@@ -24,6 +27,7 @@ export const getAll = async (req, res) => {
                 return el.colors.includes(req.query.colors)
             })
         }
+
 
 
         // if (req.query.category && req.query.brand) {
